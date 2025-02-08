@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentView xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:SchoolManage.App.ViewModels"
+             xmlns:models="clr-namespace:SchoolManage.BL.Models;assembly=SchoolManage.BL"
+             x:Class="SchoolManage.App.Views.Subject.SubjectTableView"
+             x:Name="SubjectTableViewRoot"
+             x:DataType="vm:SubjectTableViewModel">
+
+	<StackLayout Padding="0,50,0,0" VerticalOptions="StartAndExpand" HorizontalOptions="Center">
+		<Label Text="Subjects" FontSize="30" HorizontalOptions="Center" />
+
+		<CollectionView ItemsSource="{Binding Subjects}"
+                        VerticalOptions="Center"
+                        HorizontalOptions="Center"
+                        WidthRequest="400">
+			<CollectionView.ItemsLayout>
+				<GridItemsLayout Orientation="Vertical" Span="2" />
+			</CollectionView.ItemsLayout>
+			<CollectionView.ItemTemplate>
+				<DataTemplate x:DataType="models:SubjectListModel">
+					<Frame Margin="5" Padding="10" BackgroundColor="White" BorderColor="Black" CornerRadius="10">
+						<StackLayout>
+							<Label Text="{Binding Acronym}" FontSize="16" TextColor="Blue" HorizontalOptions="Center" />
+							<Label Text="{Binding Name}" FontSize="20" TextColor="Blue" HorizontalOptions="Center" />
+						</StackLayout>
+						<Frame.GestureRecognizers>
+							<TapGestureRecognizer Command="{Binding Source={x:Reference SubjectTableViewRoot}, Path=BindingContext.GoToDetailCommand}"
+                                                  CommandParameter="{Binding Id}" />
+						</Frame.GestureRecognizers>
+					</Frame>
+				</DataTemplate>
+			</CollectionView.ItemTemplate>
+		</CollectionView>
+	</StackLayout>
+</ContentView>

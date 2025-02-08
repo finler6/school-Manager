@@ -1,0 +1,344 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework Condition="$([MSBuild]::IsOSPlatform('OSX'))">net8.0-maccatalyst</TargetFramework>
+		<TargetFramework Condition=" '$(OS)' == 'Windows_NT' ">net8.0-windows10.0.19041.0</TargetFramework>
+		<OutputType>Exe</OutputType>
+		<RootNamespace>SchoolManage.App</RootNamespace>
+		<UseMaui>true</UseMaui>
+		<MauiVersion>8.0.6</MauiVersion>
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+
+		<!-- Display name -->
+		<ApplicationTitle>SchoolManage.App</ApplicationTitle>
+
+		<!-- App Identifier -->
+		<ApplicationId>com.companyname.schoolmanage.app</ApplicationId>
+		<ApplicationIdGuid>0f059388-f774-4c95-880a-de528c51fc0e</ApplicationIdGuid>
+
+		<!-- Versions -->
+		<ApplicationDisplayVersion>1.0</ApplicationDisplayVersion>
+		<ApplicationVersion>1</ApplicationVersion>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.19041.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">17.0</SupportedOSPlatformVersion>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<NoWarn>1591</NoWarn>
+		<UserSecretsId>00775e36-5374-4630-b80a-38bf58169d4e</UserSecretsId>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net8.0-windows10.0.19041.0|AnyCPU'">
+		<Optimize>True</Optimize>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net8.0-windows10.0.19041.0|AnyCPU'">
+		<Optimize>False</Optimize>
+	</PropertyGroup>
+
+	<ItemGroup>
+		<!-- App Icon -->
+
+		<!-- Splash Screen -->
+		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
+
+		<!-- Images -->
+		<MauiImage Include="Resources\Images\*" />
+		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
+
+		<!-- Custom Fonts -->
+		<MauiFont Include="Resources\Fonts\*" />
+
+		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<None Remove="appsettings.json" />
+		<None Remove="Resources\Images\ingredient_placeholder.jpg" />
+		<None Remove="Resources\Images\recipe_placeholder.jpg" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Include="appsettings.json" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<ProjectReference Include="..\SchoolManage.BL\SchoolManage.BL.csproj" />
+	</ItemGroup>
+
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="9.0.0-preview.3.24172.9" />
+		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
+		<PackageReference Include="Microsoft.Maui.Controls.Compatibility" Version="$(MauiVersion)" />
+
+		<PackageReference Include="CommunityToolkit.Maui" Version="7.0.1" />
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.2.2" />
+		<PackageReference Include="Fody" Version="6.8.0" PrivateAssets="all">
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+		<PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0" />
+		<PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="8.0.0" />
+		<PackageReference Include="PropertyChanged.Fody" Version="4.1.0" PrivateAssets="All" />
+		<PackageReference Include="Scrutor" Version="4.2.2" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<Compile Update="Resources\Texts\ActivityEditViewTexts.en-US.Designer.cs">
+			<DependentUpon>ActivityEditViewTexts.en-US.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
+		<Compile Update="Resources\Texts\SubjectListViewTexts.Designer.cs">
+			<DependentUpon>SubjectListViewTexts.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
+		<Compile Update="Resources\Texts\SubjectListViewTexts.en-US.Designer.cs">
+			<DependentUpon>SubjectListViewTexts.en-US.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
+		<Compile Update="Resources\Texts\StudentListViewTexts.Designer.cs">
+			<DependentUpon>StudentListViewTexts.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
+		<Compile Update="Resources\Texts\StudentListViewTexts.en-US.Designer.cs">
+			<DependentUpon>StudentListViewTexts.en-US.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
+		<Compile Update="Resources\Texts\EvaluationListViewTexts.Designer.cs">
+			<DependentUpon>EvaluationListViewTexts.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
+		<Compile Update="Resources\Texts\EvaluationListViewTexts.en-US.Designer.cs">
+			<DependentUpon>EvaluationListViewTexts.en-US.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
+		<Compile Update="Resources\Texts\ActivityListViewTexts.en-US.Designer.cs">
+			<DependentUpon>ActivityListViewTexts.en-US.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
+		<Compile Update="Resources\Texts\AppShellTexts.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>AppShellTexts.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Resources\Texts\ActivityTypeTexts.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>ActivityTypeTexts.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Resources\Texts\ActivityTypeTexts.en-US.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>ActivityTypeTexts.en-US.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Resources\Texts\ActivityDetailViewTexts.en-US.Designer.cs">
+			<DependentUpon>ActivityDetailViewTexts.en-US.resx</DependentUpon>
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+		</Compile>
+		<Compile Update="Resources\Texts\ActivityDetailViewTexts.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>ActivityDetailViewTexts.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Resources\Texts\ActivityEditViewTexts.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>ActivityEditViewTexts.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Resources\Texts\ActivityListViewTexts.Designer.cs">
+			<DesignTime>True</DesignTime>
+			<AutoGen>True</AutoGen>
+			<DependentUpon>ActivityListViewTexts.resx</DependentUpon>
+		</Compile>
+		<Compile Update="Views\Activity\ActivityListView.xaml.cs">
+			<DependentUpon>ActivityListView.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\Activity\ActivityEditView.xaml.cs">
+			<DependentUpon>ActivityEditView.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\Activity\ActivityDetailView.xaml.cs">
+			<DependentUpon>ActivityDetailView.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\ContentPageBase.xaml.cs">
+			<DependentUpon>ContentPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\MainPageView.xaml.cs">
+		  <DependentUpon>MainPageView.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\LoginPage.xaml.cs">
+		  <DependentUpon>LoginPage.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\Student\StudentSubjectEditView.xaml.cs">
+		  <DependentUpon>StudentSubjectEditView.xaml</DependentUpon>
+		</Compile>
+		<Compile Update="Views\Subject\SubjectTableView.xaml.cs">
+		  <DependentUpon>SubjectTableView.xaml</DependentUpon>
+		</Compile>
+	</ItemGroup>
+
+	<ItemGroup>
+		<EmbeddedResource Update="Resources\Texts\ActivityEditViewTexts.en-US.resx">
+			<LastGenOutput>ActivityEditViewTexts.en-US.Designer.cs</LastGenOutput>
+			<Generator>ResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\Texts\SubjectListViewTexts.en-US.resx">
+			<LastGenOutput>SubjectListViewTexts.en-US.Designer.cs</LastGenOutput>
+			<Generator>ResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\Texts\SubjectListViewTexts.resx">
+			<LastGenOutput>SubjectListViewTexts.Designer.cs</LastGenOutput>
+			<Generator>ResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\Texts\StudentListViewTexts.en-US.resx">
+			<LastGenOutput>StudentListViewTexts.en-US.Designer.cs</LastGenOutput>
+			<Generator>ResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\Texts\StudentListViewTexts.resx">
+			<LastGenOutput>StudentListViewTexts.Designer.cs</LastGenOutput>
+			<Generator>ResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\Texts\EvaluationListViewTexts.en-US.resx">
+			<LastGenOutput>EvaluationListViewTexts.en-US.Designer.cs</LastGenOutput>
+			<Generator>ResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\Texts\EvaluationListViewTexts.resx">
+			<LastGenOutput>EvaluationListViewTexts.Designer.cs</LastGenOutput>
+			<Generator>ResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\Texts\ActivityListViewTexts.en-US.resx">
+			<LastGenOutput>ActivityListViewTexts.en-US.Designer.cs</LastGenOutput>
+			<Generator>ResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\Texts\ActivityTypeTexts.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>ActivityTypeTexts.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\Texts\ActivityTypeTexts.en-US.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>ActivityTypeTexts.en-US.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\Texts\ActivityDetailViewTexts.en-US.resx">
+			<LastGenOutput>ActivityDetailViewTexts.en-US.Designer.cs</LastGenOutput>
+			<Generator>ResXFileCodeGenerator</Generator>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\Texts\ActivityDetailViewTexts.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>ActivityDetailViewTexts.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\Texts\ActivityEditViewTexts.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>ActivityEditViewTexts.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\Texts\ActivityListViewTexts.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>ActivityListViewTexts.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+		<EmbeddedResource Update="Resources\Texts\UnitTexts.resx">
+			<Generator>ResXFileCodeGenerator</Generator>
+			<LastGenOutput>UnitTexts.Designer.cs</LastGenOutput>
+		</EmbeddedResource>
+	</ItemGroup>
+
+	<ItemGroup>
+		<MauiXaml Update="Resources\Styles\FrameStyle.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Resources\Styles\ContentPageStyle.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Resources\Styles\LabelStyle.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Resources\Styles\ButtonStyle.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Shells\AppShell.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Activity\ActivityListView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Activity\ActivityEditView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Activity\ActivityDetailView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\ContentPageBase.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Evaluation\NewPage1.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\ContentPage.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\MainPageView.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\LoginPage.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Student\StudentSubjectEditView.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Student\StudentDetailView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Student\StudentEditView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Student\StudentListView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Subject\SubjectTableView.xaml">
+		  <Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Subject\SubjectDetailView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Subject\SubjectEditView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Subject\SubjectListView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Evaluation\EvaluationDetailView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Evaluation\EvaluationEditView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Evaluation\EvaluationListView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Activity\ActivityDetailView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Activity\ActivityEditView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+		<MauiXaml Update="Views\Activity\ActivityIngredientsEditView.xaml">
+			<Generator>MSBuild:Compile</Generator>
+		</MauiXaml>
+	</ItemGroup>
+
+	<ItemGroup>
+		<Folder Include="Options\" />
+	</ItemGroup>
+
+</Project>

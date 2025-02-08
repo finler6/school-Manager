@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:SchoolManage.App.ViewModels"
+             xmlns:models="clr-namespace:SchoolManage.BL.Models;assembly=SchoolManage.BL"
+             xmlns:converters="clr-namespace:SchoolManage.App.Converters"
+             x:Class="SchoolManage.App.Views.Student.StudentSubjectEditView"
+             x:DataType="vm:StudentSubjectEditViewModel"
+             Loaded="ContentPage_Loaded"
+             x:Name="StudentSubjectEditViewRoot">
+
+	<ContentPage.Resources>
+		<ResourceDictionary>
+			<converters:ContainsConverter x:Key="ContainsConverter" />
+		</ResourceDictionary>
+	</ContentPage.Resources>
+
+	<StackLayout Padding="20">
+		<Label Text="Assigned Subjects" FontSize="24" HorizontalOptions="Center" Margin="0,10"/>
+		<CollectionView ItemsSource="{Binding Student.Subjects}">
+			<CollectionView.ItemTemplate>
+				<DataTemplate x:DataType="models:SubjectListModel">
+					<StackLayout>
+						<Label Text="{Binding Name}" FontSize="18" Margin="10,0"/>
+					</StackLayout>
+				</DataTemplate>
+			</CollectionView.ItemTemplate>
+		</CollectionView>
+
+		<Label Text="All Subjects" FontSize="24" HorizontalOptions="Center" Margin="0,20"/>
+		<CollectionView ItemsSource="{Binding AllSubjects}">
+			<CollectionView.ItemTemplate>
+				<DataTemplate x:DataType="models:SubjectListModel">
+					<StackLayout Orientation="Horizontal" Margin="10,5">
+						<CheckBox IsChecked="{Binding Source={x:Reference StudentSubjectEditViewRoot}, Path=BindingContext.SelectedSubjectIds, Converter={StaticResource ContainsConverter}, ConverterParameter={Binding Id}}"
+                                  CheckedChanged="OnCheckedChanged" />
+						<Label Text="{Binding Name}" FontSize="18" VerticalOptions="Center" Margin="10,0"/>
+					</StackLayout>
+				</DataTemplate>
+			</CollectionView.ItemTemplate>
+		</CollectionView>
+
+		<Button Text="Save" Command="{Binding SaveCommand}" FontSize="18" HorizontalOptions="Center" Margin="20"/>
+	</StackLayout>
+</ContentPage>

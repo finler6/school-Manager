@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:views="clr-namespace:SchoolManage.App.Views"
+                       xmlns:texts="clr-namespace:SchoolManage.App.Resources.Texts"
+                       xmlns:vm="clr-namespace:SchoolManage.App.ViewModels"
+                       xmlns:models="clr-namespace:SchoolManage.BL.Models;assembly=SchoolManage.BL"
+                       x:Class="SchoolManage.App.Views.Subject.SubjectEditView"
+                       x:DataType="vm:SubjectEditViewModel">
+    <ScrollView>
+        <StackLayout Padding="10" Spacing="10">
+            <Label Text="Edit Subject"
+           VerticalOptions="Center"
+           HorizontalOptions="Center"
+           FontSize="40"/>
+
+            <Label Text="Name" FontSize="20"/>
+            <Editor Text="{Binding Subject.Name}"
+            AutoSize="TextChanges"
+            VerticalOptions="Fill"
+            Placeholder="Fill in the subject's name"/>
+
+            <Label Text="Acronym" FontSize="20"/>
+            <Editor Text="{Binding Subject.Acronym}"
+            AutoSize="TextChanges"
+            VerticalOptions="Fill"
+            Placeholder="Fill in the subject's acronym"/>
+
+            <Label Text="Assigned Students" FontSize="24" HorizontalOptions="Center" Margin="10"/>
+            <CollectionView ItemsSource="{Binding Subject.Students}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:StudentListModel">
+                        <StackLayout>
+                            <Label Text="{Binding Name}" FontSize="18" Margin="10,0"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Label Text="All Students" FontSize="24" HorizontalOptions="Center" Margin="10"/>
+            <CollectionView ItemsSource="{Binding Students}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:StudentListModel">
+                        <StackLayout Orientation="Horizontal" Padding="10">
+                            <CheckBox IsChecked="{Binding Source={RelativeSource AncestorType={x:Type vm:SubjectEditViewModel}}, Path=IsStudentSelected(Id)}"
+                              CheckedChanged="OnCheckBoxCheckedChanged"
+                              BindingContext="{Binding .}" />
+                            <Label Text="{Binding Name}" FontSize="16" VerticalOptions="Center" Margin="10,0"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <Button Text="Save"
+            CornerRadius="5"
+            Command="{Binding SaveCommand}"
+            HorizontalOptions="Center"
+            Margin="20"/>
+        </StackLayout>
+    </ScrollView>
+</views:ContentPageBase>

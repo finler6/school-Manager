@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:views="clr-namespace:SchoolManage.App.Views"
+                       xmlns:texts="clr-namespace:SchoolManage.App.Resources.Texts"
+                       xmlns:vm="clr-namespace:SchoolManage.App.ViewModels"
+                       x:Class="SchoolManage.App.Views.Subject.SubjectDetailView"
+                       x:DataType="vm:SubjectDetailViewModel">
+    <ScrollView>
+        <VerticalStackLayout Spacing="30" Padding="30">
+            <Label Text="Subject detail" FontSize="30" VerticalOptions="Center"/>
+
+            <HorizontalStackLayout Spacing="15">
+                <Label FontSize="35">
+                    <Label.FormattedText>
+                        <FormattedString>
+                            <Span Text="{Binding Subject.Acronym}" />
+                            <Span Text=" - "/>
+                            <Span Text="{Binding Subject.Name}" />
+                        </FormattedString>
+                    </Label.FormattedText>
+                </Label>
+                
+                <Button Text="Edit subject" 
+                        BackgroundColor="RoyalBlue"
+                        Command="{Binding GoToEditCommand}" />
+                
+                <Button Text="Delete subject"
+                        BackgroundColor="Red"
+                        Command="{Binding DeleteSubjectCommand}"
+                        CommandParameter="{Binding Subject.Id}"/>
+            </HorizontalStackLayout>
+
+            <!-- <Label Text="Evaluations" FontSize="30"/> -->
+
+            <HorizontalStackLayout Spacing="10">
+                <Label Text="Activities" FontSize="35"/>
+
+                <Button Text="Add Activity"
+                        CornerRadius="5"
+                        Command="{Binding GoToCreateCommand}" 
+                        CommandParameter="{Binding Id}"/>
+            </HorizontalStackLayout>
+
+            <CollectionView x:Name="CollectionViewControl" ItemsSource="{Binding ActivityViewModels}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="vm:SubjectActivityListViewModel">
+                        <StackLayout>
+                            <Grid Padding="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="300" />
+                                </Grid.ColumnDefinitions>
+                                <Button Text="{Binding Activity.Type}"
+                                        Command="{Binding ToggleDetailCommand}"
+                                        CommandParameter="{Binding .}">
+                                </Button>
+                            </Grid>
+                            <!-- Detail Section -->
+                            <Grid x:Name="DetailGrid" Padding="10" IsVisible="{Binding IsDetailVisible}">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="200" />
+                                    <ColumnDefinition Width="100" />
+                                    <ColumnDefinition Width="*" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+                                <Label Grid.Column="0" Grid.Row="0" Text="Start:" FontAttributes="Bold" />
+                                <Label Grid.Column="1" Grid.Row="0" Text="{Binding Activity.Start}" />
+                                <Label Grid.Column="0" Grid.Row="1" Text="End:" FontAttributes="Bold" />
+                                <Label Grid.Column="1" Grid.Row="1" Text="{Binding Activity.End}" />
+                                <Label Grid.Column="0" Grid.Row="2" Text="Room:" FontAttributes="Bold" />
+                                <Label Grid.Column="1" Grid.Row="2" Text="{Binding Activity.Room}" />
+                                <Label Grid.Column="0" Grid.Row="3" Text="Description:" FontAttributes="Bold" />
+                                <Label Grid.Column="1" Grid.Row="3" Text="{Binding Activity.Description}" />
+                                <Button Grid.Column="2" Grid.Row="2" Text="Evaluate"
+                                        CornerRadius="5"
+                                        BackgroundColor="Green"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SubjectDetailViewModel}}, Path=GoToEvaluateCommand}"
+                                        CommandParameter="{Binding Activity}" />
+                                <Button Grid.Column="2" Grid.Row="0" Text="Edit"
+                                        CornerRadius="5"
+                                        BackgroundColor="RoyalBlue"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SubjectDetailViewModel}}, Path=GoToEditActivityCommand}"
+                                        CommandParameter="{Binding Activity.Id}" />
+                                <Button Grid.Column="2" Grid.Row="4" Text="Delete"
+                                        BackgroundColor="Red"
+                                        CornerRadius="5"
+                                        Command="{Binding Source={RelativeSource AncestorType={x:Type vm:SubjectDetailViewModel}}, Path=DeleteCommand}"
+                                        CommandParameter="{Binding Activity.Id}" />
+                            </Grid>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </VerticalStackLayout>
+    </ScrollView>
+</views:ContentPageBase>

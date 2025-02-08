@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:views="clr-namespace:SchoolManage.App.Views"
+                       xmlns:texts="clr-namespace:SchoolManage.App.Resources.Texts"
+                       xmlns:vm="clr-namespace:SchoolManage.App.ViewModels"
+                       xmlns:models="clr-namespace:SchoolManage.BL.Models;assembly=SchoolManage.BL"
+                       x:Class="SchoolManage.App.Views.Subject.SubjectActivityEvaluationEditView"
+                       x:DataType="vm:SubjectActivityEvaluationEditViewModel">
+	<ScrollView>
+        <VerticalStackLayout Padding="10" Spacing="10">
+            <Label Text="Evaluate Exam" FontSize="40" VerticalOptions="Center"/>
+
+            <CollectionView ItemsSource="{Binding Evaluations}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:EvaluationListModel">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80" />
+                                <ColumnDefinition Width="80" />
+                                <ColumnDefinition Width="100" />
+                            </Grid.ColumnDefinitions>
+                            <Label Grid.Column="0" FontSize="20" Text="{Binding Students.Name}" VerticalOptions="Center" />
+                            <Label Grid.Column="1" FontSize="20" Text="{Binding Students.Surname}" VerticalOptions="Center"/>
+                            <Entry Grid.Column="3" Text="{Binding Points}" Keyboard="Numeric"/>
+                        </Grid>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+            <Button Text="Confirm Evaluation" Command="{Binding SaveCommand}" />
+        </VerticalStackLayout>
+	</ScrollView>
+</views:ContentPageBase>

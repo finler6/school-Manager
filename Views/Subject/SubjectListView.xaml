@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:views="clr-namespace:SchoolManage.App.Views"
+                       xmlns:texts="clr-namespace:SchoolManage.App.Resources.Texts"
+                       xmlns:models="clr-namespace:SchoolManage.BL.Models;assembly=SchoolManage.BL"
+                       xmlns:vm="clr-namespace:SchoolManage.App.ViewModels"
+                       x:Class="SchoolManage.App.Views.Subject.SubjectListView"
+                       x:Name="SubjectListViewRoot"
+                       x:DataType="vm:SubjectListViewModel">
+    <StackLayout>
+        
+        <!-- <SearchBar Placeholder="Vyhledávejte studenty a předměty" BackgroundColor="Wheat"/> -->
+        <SearchBar Placeholder="Search students"
+                   Text="{Binding SearchText}"
+                   SearchCommand="{Binding SearchCommand}"
+                   BackgroundColor="Wheat"/>
+         
+        <Label Text="Predmety" FontSize="30"/>
+        <StackLayout
+            Padding="180">
+            
+            <CollectionView ItemsSource="{Binding Subject}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:SubjectListModel">
+                        <StackLayout
+                            Margin="16">
+                            <Frame>
+                                <StackLayout>
+                                    <Label Text="{Binding Acronym}" FontSize="16" TextColor="Brown"></Label>
+                                    <Label Text="{Binding Name}" FontSize="20" TextColor="Brown"></Label>
+                                </StackLayout>
+                                    
+                                <!-- Presun na detail-->
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={x:Reference SubjectListViewRoot}, Path=BindingContext.GoToDetailCommand}"
+                                                          CommandParameter="{Binding Id}" />
+                                </Frame.GestureRecognizers>
+                            </Frame>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>  
+            
+        </StackLayout>
+        
+    </StackLayout>
+</views:ContentPageBase>

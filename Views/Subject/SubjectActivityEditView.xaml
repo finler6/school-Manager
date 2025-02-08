@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:views="clr-namespace:SchoolManage.App.Views"
+                       xmlns:texts="clr-namespace:SchoolManage.App.Resources.Texts"
+                       xmlns:vm="clr-namespace:SchoolManage.App.ViewModels"
+                       xmlns:models="clr-namespace:SchoolManage.BL.Models;assembly=SchoolManage.BL"
+                       x:Class="SchoolManage.App.Views.Subject.SubjectActivityEditView"
+                       x:DataType="vm:SubjectActivityEditViewModel">
+    <VerticalStackLayout Padding="15" Spacing="10">
+        <Label Text="Add activity" FontSize="40" VerticalOptions="Center"/>
+
+        <HorizontalStackLayout Spacing="20">
+	        <Label Text="Activity"/>
+	        <Picker ItemsSource="{Binding ActivityTypes}"
+	                SelectedItem="{Binding Activity.Type}" />
+            <VerticalStackLayout Spacing="20">
+                <HorizontalStackLayout Spacing="20"
+                   HeightRequest="30">
+                        <Label Text="Start" FontSize="20" VerticalOptions="Center"/>
+					<DatePicker  Grid.Row="1" Grid.Column="1"
+								 Date="{Binding SelectedDate}" />
+                        <TimePicker Grid.Row="1" Grid.Column="1"
+                                    Time="{Binding SelectedStartTime}"
+                                    Format="HH:mm" />
+                </HorizontalStackLayout>
+                <HorizontalStackLayout Spacing="20"
+                                       HeightRequest="30">
+                        <Label Text="End" FontSize="20" VerticalOptions="Center"/>
+                        <TimePicker Grid.Row="1" Grid.Column="1"
+                                    Time="{Binding SelectedEndTime}"
+                                    Format="HH:mm" />
+                </HorizontalStackLayout>
+            </VerticalStackLayout>
+  
+        </HorizontalStackLayout>
+        
+		<HorizontalStackLayout Spacing="20">
+			<Label Text="Room"/>
+			<Picker ItemsSource="{Binding Rooms}"
+			        SelectedItem="{Binding Activity.Room}" />
+		</HorizontalStackLayout>
+        
+        <Label Text="Description" FontSize="20" VerticalOptions="Center"/>
+        <Editor Text="{Binding Activity.Description}"
+                AutoSize="TextChanges"
+                VerticalOptions="Fill" />
+        
+		<HorizontalStackLayout Spacing="20"
+							   HorizontalOptions="Center">
+		    <Button Text ="Save Activity"
+				    CornerRadius="5"
+				    Command="{Binding SaveCommand}" />
+		</HorizontalStackLayout>
+  
+    </VerticalStackLayout>
+
+
+</views:ContentPageBase>

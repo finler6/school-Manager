@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:views="clr-namespace:SchoolManage.App.Views"
+                       xmlns:texts="clr-namespace:SchoolManage.App.Resources.Texts"
+                       xmlns:vm="clr-namespace:SchoolManage.App.ViewModels"
+                       xmlns:models="clr-namespace:SchoolManage.BL.Models;assembly=SchoolManage.BL"
+                       x:Class="SchoolManage.App.Views.Student.StudentDetailView"
+                       x:DataType="vm:StudentDetailViewModel"
+                       x:Name="StudentDetailViewRoot">
+    <ScrollView>
+        <StackLayout Padding="20" Spacing="20" VerticalOptions="CenterAndExpand" HorizontalOptions="CenterAndExpand">
+
+            <!-- Title -->
+            <Label Text="Student Detail"
+                   FontSize="24"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   Margin="0,10,0,20"/>
+
+            <!-- Student Image -->
+            <Frame HasShadow="False" Padding="0" BackgroundColor="Transparent" HorizontalOptions="Center">
+                <Image Source="{Binding Student.ImageUrl, TargetNullValue='placeholder.jpg'}"
+                       Aspect="AspectFill"
+                       WidthRequest="240"
+                       HeightRequest="240" />
+            </Frame>
+
+            <!-- Student Name -->
+            <Label FontSize="20" HorizontalOptions="Center">
+                <Label.FormattedText>
+                    <FormattedString>
+                        <Span Text="{Binding Student.Name}" />
+                        <Span Text=" " />
+                        <Span Text="{Binding Student.Surname}" />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+
+            <!-- Subjects List -->
+            <Label Text="Assigned Subjects"
+                   FontSize="20"
+                   FontAttributes="Bold"
+                   HorizontalOptions="Center"
+                   Margin="0,20,0,10"/>
+            <CollectionView ItemsSource="{Binding Subjects}" BackgroundColor="White" Margin="0,10">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:SubjectListModel">
+                        <Frame BackgroundColor="LightGray" CornerRadius="5" Margin="0,5" Padding="10" HasShadow="True">
+                            <StackLayout Orientation="Horizontal">
+                                <StackLayout.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={x:Reference StudentDetailViewRoot}, Path=BindingContext.GoToSubjectDetailCommand}"
+                                                          CommandParameter="{Binding Id}" />
+                                </StackLayout.GestureRecognizers>
+                                <Label Text="{Binding Name}" FontSize="16" TextColor="Blue" VerticalOptions="Center" />
+                            </StackLayout>
+                        </Frame>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+            <!-- Edit Button -->
+            <Button Text="Edit Button"
+                    Command="{Binding GoToEditCommand}"
+                    FontSize="14"
+                    Padding="12, 6"
+                    HorizontalOptions="Center"
+                    BackgroundColor="#007AFF"
+                    TextColor="White"
+                    CornerRadius="20"/>
+        </StackLayout>
+    </ScrollView>
+</views:ContentPageBase>

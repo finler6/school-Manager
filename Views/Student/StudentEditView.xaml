@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:SchoolManage.App.ViewModels"
+             xmlns:models="clr-namespace:SchoolManage.BL.Models;assembly=SchoolManage.BL"
+             x:Class="SchoolManage.App.Views.Student.StudentEditView"
+             x:DataType="vm:StudentEditViewModel">
+
+	<StackLayout Padding="20" Spacing="20">
+
+		<!-- Title -->
+		<Label Text="Edit Student"
+               FontSize="24"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               Margin="0,10,0,20"/>
+
+		<!-- Name Entry -->
+		<StackLayout>
+			<Label Text="Name"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   Margin="0,0,0,5"/>
+			<Entry Text="{Binding Student.Name}"
+                   FontSize="16"
+                   BackgroundColor="White"
+                   TextColor="Black"
+                   Placeholder="Enter student's name"/>
+		</StackLayout>
+
+		<!-- Surname Entry -->
+		<StackLayout>
+			<Label Text="Surname"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   Margin="0,10,0,5"/>
+			<Entry Text="{Binding Student.Surname}"
+                   FontSize="16"
+                   BackgroundColor="White"
+                   TextColor="Black"
+                   Placeholder="Enter student's surname"/>
+		</StackLayout>
+
+		<!-- Image URL Entry -->
+		<StackLayout>
+			<Label Text="Image URL"
+                   FontSize="18"
+                   FontAttributes="Bold"
+                   Margin="0,10,0,5"/>
+			<Entry Text="{Binding Student.ImageUrl}"
+                   FontSize="16"
+                   BackgroundColor="White"
+                   TextColor="Black"
+                   Placeholder="Enter image URL"/>
+		</StackLayout>
+
+		<!-- Save Button -->
+		<Button Text="Save"
+                Command="{Binding SaveCommand}"
+                FontSize="16"
+                BackgroundColor="#007AFF"
+                TextColor="White"
+                CornerRadius="20"
+                Padding="12, 6"
+                HorizontalOptions="Center" />
+
+		<!-- Edit Subjects Button -->
+		<Button Text="Edit Subjects"
+                Command="{Binding GoToSubjectEditCommand}"
+                FontSize="16"
+                BackgroundColor="#28A745"
+                TextColor="White"
+                CornerRadius="20"
+                Padding="12, 6"
+                HorizontalOptions="Center" />
+
+		<!-- Delete Button -->
+		<Button Text="Delete"
+                Command="{Binding DeleteCommand}"
+                FontSize="16"
+                BackgroundColor="#FF0000"
+                TextColor="White"
+                CornerRadius="20"
+                Padding="12, 6"
+                HorizontalOptions="Center" />
+
+	</StackLayout>
+</ContentPage>

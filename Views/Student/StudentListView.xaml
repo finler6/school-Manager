@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<views:ContentPageBase xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+                       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+                       xmlns:views="clr-namespace:SchoolManage.App.Views"
+                       xmlns:texts="clr-namespace:SchoolManage.App.Resources.Texts"
+                       xmlns:models="clr-namespace:SchoolManage.BL.Models;assembly=SchoolManage.BL"
+                       xmlns:vm="clr-namespace:SchoolManage.App.ViewModels"
+                       x:Class="SchoolManage.App.Views.Student.StudentListView"
+                       x:Name="StudentListViewRoot"
+                       x:DataType="vm:StudentListViewModel">
+    <StackLayout>
+
+        <StackLayout
+            Padding="180">
+
+            <CollectionView ItemsSource="{Binding Students}">
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:StudentListModel">
+                        <StackLayout
+                            Margin="16">
+                            <Frame>
+                                <StackLayout>
+                                    <Label Text="{Binding Name}" FontSize="20" TextColor="Brown"></Label>
+                                    <Label Text="{Binding Surname}" FontSize="16" TextColor="Brown"></Label>
+                                </StackLayout>
+
+                                <!-- Presun na detail-->
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding Source={x:Reference StudentListViewRoot}, Path=BindingContext.GoToDetailCommand}"
+                                                          CommandParameter="{Binding Id}" />
+                                </Frame.GestureRecognizers>
+                            </Frame>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+            </CollectionView>
+
+        </StackLayout>
+
+    </StackLayout>
+</views:ContentPageBase>
