@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<Shell xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:views="clr-namespace:SchoolManage.App.Views"
+       xmlns:student="clr-namespace:SchoolManage.App.Views.Student"
+       xmlns:subject="clr-namespace:SchoolManage.App.Views.Subject"
+       xmlns:activity="clr-namespace:SchoolManage.App.Views.Activity"
+       x:Class="SchoolManage.App.Shells.AppShell"
+       x:Name="AppShellRoot"
+       FlyoutBehavior="Disabled">
+
+	<ShellContent ContentTemplate="{DataTemplate views:MainPageView}" Route="mainpage" />
+	<ShellContent ContentTemplate="{DataTemplate student:StudentListView}" Route="students" />
+	<ShellContent ContentTemplate="{DataTemplate student:StudentDetailView}" Route="mainpage/studentdetail" />
+	<ShellContent ContentTemplate="{DataTemplate student:StudentEditView}" Route="mainpage/studentdetail/edit" />
+	<ShellContent ContentTemplate="{DataTemplate student:StudentSubjectEditView}" Route="mainpage/studentdetail/edit/subjectedit" />
+	<ShellContent ContentTemplate="{DataTemplate activity:ActivityListView}" Route="activities" />
+	<ShellContent ContentTemplate="{DataTemplate subject:SubjectListView}" Route="subjects" />
+	<ShellContent ContentTemplate="{DataTemplate subject:SubjectDetailView}" Route="mainpage/subjectdetail" />
+
+	<Shell.MenuBarItems>
+        <MenuBarItem Text="Prepinace">
+            <MenuFlyoutItem Text="main"
+                            Command="{Binding Source={x:Reference AppShellRoot}, Path=GoToMainCommand}" />
+		</MenuBarItem>
+	</Shell.MenuBarItems>
+</Shell>
+
+
+
